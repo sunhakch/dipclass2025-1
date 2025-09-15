@@ -1,26 +1,30 @@
 <?php
+require('vendor/autoload.php');
+
+use Sc\Webproject\App;
+use Sc\Webproject\Book;
+
+// create an app object based on App class
+$app = new App();
+
 $title = "Home Page";
+$message = "Hello there";
+
+// create an instance of the book class
+$cls_book = new Book();
+$books = $cls_book -> getBooks();
+// check if we have book data
+print_r($books);
+
+// create a template loader
+$loader = new \Twig\Loader\FilesystemLoader('templates');
+$twig = new \Twig\Environment( $loader );
+// load the template into memory
+$template = $twig -> load('index.html.twig');
+// add some variables for twig to render
+echo $template -> render([
+    'title' => $title,
+    'message' => $message,
+    'books' => $books
+]);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <a href="index.php">Home Page</a>
-    <a href="test.php">Test Page</a>
-    <?php
-    //phpinfo();
-    echo "<h1>Hello World</h1>";
-    $message = "Hey there!";
-    echo "<p>$message</p>";
-    ?>
-</body>
-
-
-</html>
